@@ -6,7 +6,7 @@ provider "aws" {
 resource "aws_security_group" "launch_wizard_1" {
   name        = "launch-wizard-1"
   description = "launch-wizard-1 created 2025-06-20T06:05:53.592Z"
-  vpc_id      = "vpc-0dcfd380bf1ae6ff2"
+  vpc_id      = "vpc-0786a3d5bc2ea7fc9"
 
   ingress {
     description = "SSH"
@@ -33,11 +33,11 @@ resource "aws_instance" "example" {
   ami           = "ami-0f3f13f145e66a0a3"
   instance_type = "t2.micro"
 
-  network_interface {
-    device_index         = 0
-    associate_public_ip_address = true
-    security_groups      = [aws_security_group.launch_wizard_1.id]
-  }
+  associate_public_ip_address = true
+
+  subnet_id = "subnet-0350629fcf0319671" # ← Replace with a subnet ID from your VPC
+
+  vpc_security_group_ids = [aws_security_group.launch_wizard_1.id]
 
   credit_specification {
     cpu_credits = "standard"
