@@ -45,12 +45,15 @@ resource "aws_instance" "example" {
 
   # Install & Init docker
   user_data = <<-EOF
+              exec > >(tee /var/log/user-data.log | logger -t user-data -s 2>/dev/console) 2>&1
+              echo "Starting user_data execution at $(date)"
               #!/bin/bash
               sudo yum update -y
               sudo yum install -y docker
               sudo systemctl enable docker
               sudo systemctl start docker
               usermod -aG docker ec2-user
+              echo "Docker installation complete at $(date)"
               EOF
 
   credit_specification {
