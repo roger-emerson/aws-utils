@@ -28,6 +28,18 @@ locals {
   ami_id = "ami-0c2b8ca1dad447f8a" # Amazon Linux 2 AMI in us-east-1
 }
 
+resource "aws_eip" "elasticsearch" {
+  instance = aws_instance.elasticsearch.id
+}
+
+resource "aws_eip" "kibana" {
+  instance = aws_instance.kibana.id
+}
+
+resource "aws_eip" "fluentd" {
+  instance = aws_instance.fluentd.id
+}
+
 resource "aws_instance" "elasticsearch" {
   ami                         = local.ami_id
   instance_type               = "t3.small"
