@@ -2,7 +2,13 @@ provider "aws" {
   region = "us-east-1" # or your desired region
 }
 
-# Step 1: Create a Security Group
+# Add random value
+resource "random_integer" "suffix" {
+  min = 1000
+  max = 9999
+}
+
+# Create a Security Group
 resource "aws_security_group" "launch_wizard_1" {
   name        = "launch-wizard-1"
   description = "launch-wizard-1 created 2025-06-20T06:05:53.592Z"
@@ -28,16 +34,24 @@ resource "aws_security_group" "launch_wizard_1" {
   }
 }
 
-# Step 2: Create an EC2 Instance
+# Create an EC2 Instance
 resource "aws_instance" "example" {
   ami           = "ami-0f3f13f145e66a0a3"
   instance_type = "t2.micro"
-
   associate_public_ip_address = true
-
-  subnet_id = "subnet-0350629fcf0319671" # ← Replace with a subnet ID from your VPC
-
+  subnet_id = "subnet-0350629fcf0319671"
   vpc_security_group_ids = [aws_security_group.launch_wizard_1.id]
+  key_name = "terraform" 
+
+  # Install & Init docker
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo yum update -y
+              sudo yum install -y docker
+              sudo systemctl enable docker
+              sudo systemctl start docker
+              usermod -aG docker ec2-user
+              EOF
 
   credit_specification {
     cpu_credits = "standard"
@@ -56,6 +70,6 @@ resource "aws_instance" "example" {
   }
 
   tags = {
-    Name = "example-instance"
+    Name = "vm-${random_integer.suffix.result}.emersonlabs.net"
   }
 }
