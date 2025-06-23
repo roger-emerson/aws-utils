@@ -32,6 +32,7 @@ resource "aws_instance" "elasticsearch" {
   ami                         = local.ami_id
   instance_type               = "t3.small"
   subnet_id                   = "subnet-0350629fcf0319671"
+  private_ip                  = "10.100.100.10"
   vpc_security_group_ids      = [aws_security_group.efk.id]
   key_name                    = "terraform"
   associate_public_ip_address = true
@@ -52,6 +53,7 @@ resource "aws_instance" "kibana" {
   ami                         = local.ami_id
   instance_type               = "t3.small"
   subnet_id                   = "subnet-0350629fcf0319671"
+  private_ip                  = "10.100.100.11"
   vpc_security_group_ids      = [aws_security_group.efk.id]
   key_name                    = "terraform"
   associate_public_ip_address = true
@@ -72,6 +74,7 @@ resource "aws_instance" "fluentd" {
   ami                         = local.ami_id
   instance_type               = "t3.small"
   subnet_id                   = "subnet-0350629fcf0319671"
+  private_ip                  = "10.100.100.12"
   vpc_security_group_ids      = [aws_security_group.efk.id]
   key_name                    = "terraform"
   associate_public_ip_address = true
