@@ -39,16 +39,41 @@ locals {
   ami_id = "ami-0c2b8ca1dad447f8a" # Amazon Linux 2 AMI in us-east-1
 }
 
-resource "aws_eip" "elasticsearch" {
-  instance = aws_instance.elasticsearch.id
+resource "aws_security_group" "bastion" {
+  name        = "bastion-sg"
+  description = "Allow SSH access from your IP"
+  vpc_id      = "vpc-0786a3d5bc2ea7fc9"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
-resource "aws_eip" "kibana" {
-  instance = aws_instance.kibana.id
+resource "aws_instance" "bastion" {
+  ami                         = local.ami_id
+  instance_type               = "t3.micro"
+  subnet_id                   = "subnet-0350629fcf0319671"
+  private_ip                  = "10.100.100.2"
+  vpc_security_group_ids      = [aws_security_group.bastion.id]
+  key_name                    = "terraform"
+  associate_public_ip_address = true
+  tags = {
+    Name = "bastion.emersonlabs.net"
+  }
 }
 
-resource "aws_eip" "fluentd" {
-  instance = aws_instance.fluentd.id
+resource "aws_eip" "bastion" {
+  instance = aws_instance.bastion.id
 }
 
 resource "aws_instance" "elasticsearch" {
@@ -58,7 +83,7 @@ resource "aws_instance" "elasticsearch" {
   private_ip                  = "10.100.100.10"
   vpc_security_group_ids      = [aws_security_group.efk.id]
   key_name                    = "terraform"
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   tags = {
     Name = "elasticsearch.emersonlabs.net"
   }
@@ -79,7 +104,7 @@ resource "aws_instance" "kibana" {
   private_ip                  = "10.100.100.11"
   vpc_security_group_ids      = [aws_security_group.efk.id]
   key_name                    = "terraform"
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   tags = {
     Name = "kibana.emersonlabs.net"
   }
@@ -100,7 +125,7 @@ resource "aws_instance" "fluentd" {
   private_ip                  = "10.100.100.12"
   vpc_security_group_ids      = [aws_security_group.efk.id]
   key_name                    = "terraform"
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   tags = {
     Name = "fluentd.emersonlabs.net"
   }
