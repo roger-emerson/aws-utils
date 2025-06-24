@@ -10,7 +10,7 @@ resource "aws_subnet" "subnet" {
   for_each = toset(var.azs)
 
   availability_zone = join("", [var.region, each.value])
-  cidr_block        = cidrsubnet (var.cidr, index(each.value), 8)
+  cidr_block        = cidrsubnet(var.cidr, index(each.value), 8)
   vpc_id            = aws_vpc.vpc.id
 
   tags = {
