@@ -1,11 +1,11 @@
 variable "azs" {
-  type    = list(string)
+  type = list(string)
 }
 
 variable "cidr" {
-  type    = string
+  type = string
 }
 
 variable "name_prefix" {
-  type    = string
+  type = string
 }
