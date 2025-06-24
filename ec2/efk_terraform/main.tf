@@ -1,4 +1,6 @@
 # EFK Stack Terraform Configuration
+
+# Set S3 and DynamoDB config for cross-platform work
 terraform {
   backend "s3" {
     bucket         = "emersonlabs-terraform-state"
