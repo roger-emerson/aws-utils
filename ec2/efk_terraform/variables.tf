@@ -5,7 +5,7 @@ variable "azs" {
 
 variable "cidr" {
   type    = string
-  default = "10.100.96.0/21"
+  default = "10.100.100.0/21"
 }
 
 variable "name_prefix" {
