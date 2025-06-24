@@ -63,7 +63,7 @@ resource "aws_instance" "bastion" {
   ami                         = local.ami_id
   instance_type               = "t3.micro"
   subnet_id                   = "subnet-0350629fcf0319671"
-  private_ip                  = "10.100.100.2"
+  private_ip                  = "10.100.100.5"
   vpc_security_group_ids      = [aws_security_group.bastion.id]
   key_name                    = "terraform"
   associate_public_ip_address = true
