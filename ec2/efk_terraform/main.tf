@@ -20,6 +20,14 @@ resource "aws_security_group" "efk" {
   description = "Allow EFK components to communicate"
   vpc_id      = "vpc-0786a3d5bc2ea7fc9"
 
+  # Allow ICMP
+  ingress {
+    from_port = -1
+    to_port = -1
+    protocol = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   ingress {
     from_port   = 0
     to_port     = 65535
