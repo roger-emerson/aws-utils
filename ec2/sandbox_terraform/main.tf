@@ -36,12 +36,12 @@ resource "aws_security_group" "launch_wizard_1" {
 
 # Create an EC2 Instance
 resource "aws_instance" "example" {
-  ami           = "ami-0f3f13f145e66a0a3"
-  instance_type = "t2.micro"
+  ami                         = "ami-0f3f13f145e66a0a3"
+  instance_type               = "t2.micro"
   associate_public_ip_address = true
-  subnet_id = "subnet-0350629fcf0319671"
-  vpc_security_group_ids = [aws_security_group.launch_wizard_1.id]
-  key_name = "terraform" 
+  subnet_id                   = "subnet-0350629fcf0319671"
+  vpc_security_group_ids      = [aws_security_group.launch_wizard_1.id]
+  key_name                    = "terraform"
 
   # Install & Init docker
   user_data = <<-EOF
@@ -67,9 +67,9 @@ resource "aws_instance" "example" {
   }
 
   private_dns_name_options {
-    hostname_type                           = "ip-name"
-    enable_resource_name_dns_a_record       = true
-    enable_resource_name_dns_aaaa_record    = false
+    hostname_type                        = "ip-name"
+    enable_resource_name_dns_a_record    = true
+    enable_resource_name_dns_aaaa_record = false
   }
 
   tags = {
