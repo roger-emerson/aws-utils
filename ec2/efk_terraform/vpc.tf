@@ -18,6 +18,36 @@ resource "aws_subnet" "subnet" {
   }
 }
 
+resource "aws_default_route_table" "rtb" {
+  default_route_table_id = aws_vpc.vpc.default_route_table_id
+
+  tags = {
+    Name = "${var.name_prefix} - Route Table MAIN"
+  }
+}
+
+resource "aws_default_security_group" "sg" {
+  vpc_id = aws_vpc.vpc.id
+
+  ingress {
+    protocol  = -1
+    self      = true
+    from_port = 0
+    to_port   = 0
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.name_prefix} - Default SG"
+  }  
+}
+
 resource "aws_route_table" "rtb" {
   vpc_id = aws_vpc.vpc.id
 
