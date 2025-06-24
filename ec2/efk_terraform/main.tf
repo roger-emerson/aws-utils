@@ -104,7 +104,7 @@ resource "aws_instance" "kibana" {
   private_ip                  = "10.100.100.11"
   vpc_security_group_ids      = [aws_security_group.efk.id]
   key_name                    = "terraform"
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   tags = {
     Name = "kibana.emersonlabs.net"
   }
