@@ -45,7 +45,7 @@ resource "aws_default_security_group" "sg" {
 
   tags = {
     Name = "${var.name_prefix} - Default SG"
-  }  
+  }
 }
 
 resource "aws_route_table" "rtb" {
