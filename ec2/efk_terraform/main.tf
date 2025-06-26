@@ -21,6 +21,7 @@ module "vpc" {
   subnet_cidr       = "10.100.100.0/28"
   availability_zone = "us-east-1a"
   name_prefix       = "efk"
+  cidr              = module.vpc.cidr
   tags = {
     Environment = "dev"
   }
