@@ -9,7 +9,7 @@ module "vpc1" {
 terraform {
   backend "s3" {
     bucket         = "emersonlabs-terraform-state"
-    key            = "ec2/efk_terraform/terraform.tfstate"
+    key            = "modules/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "terraform-locks"
   }
