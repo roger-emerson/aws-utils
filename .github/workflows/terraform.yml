@@ -2,7 +2,7 @@ name: 'Terraform'
 
 on:
   push:
-    branches: [ "add-vpc" ]
+    branches: [ "main" ]
   pull_request:
 
 permissions:
@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: modules
+        working-directory: ec2/efk_terraform
 
     steps:
     - name: Checkout repository
@@ -38,7 +38,7 @@ jobs:
     - name: Check directory contents (debug)
       run: |
         pwd
-        ls -la
+        ls -lart
 
     - name: Terraform Init
       run: terraform init
@@ -50,5 +50,5 @@ jobs:
       run: terraform plan -input=false
 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/add-vpc' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
