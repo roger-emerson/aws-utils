@@ -22,6 +22,7 @@ module "vpc" {
   availability_zone = "us-east-1a"
   name_prefix       = "efk"
   cidr              = module.vpc.cidr
+  azs               = module.vpc.azs
   tags = {
     Environment = "dev"
   }
