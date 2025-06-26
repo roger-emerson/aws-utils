@@ -8,7 +8,3 @@ variable "cidr" {
   default = "10.100.100.0/21"
 }
 
-variable "name_prefix" {
-  type    = string
-  default = "Lab"
-}
