@@ -94,3 +94,11 @@ resource "aws_internet_gateway" "igw" {
     Name = "${var.name_prefix} - IGW"
   }
 }
+
+resource "aws_route" "igw-default" {
+  count = var.igw == false ? 0 : 1
+
+  route_table_id            = aws_route_table.rtb.id
+  destination_cidr_block    = "0.0.0.0/0"
+  vpc_peering_connection_id = aws_internet_gateway.igw.id
+}
