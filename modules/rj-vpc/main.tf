@@ -85,8 +85,8 @@ resource "aws_route_table_association" "rtb-assoc" {
   route_table_id = aws_route_table.rtb.id
 }
 
-resource "aws_internet_gateway" {
-  count = var.igw == true ? 1 : 0
+resource "aws_internet_gateway" "igw" {
+  count = var.igw == false ? 0 : 1
 
   vpc_id = aws_vpc.vpc.id
 
