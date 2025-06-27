@@ -84,3 +84,13 @@ resource "aws_route_table_association" "rtb-assoc" {
   subnet_id      = aws_subnet.subnet.id
   route_table_id = aws_route_table.rtb.id
 }
+
+resource "aws_internet_gateway" {
+  count = var.igw == true ? 1 : 0
+
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "${var.name_prefix} - IGW"
+  }
+}

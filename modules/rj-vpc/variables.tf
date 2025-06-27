@@ -13,3 +13,7 @@ variable "availability_zone" {
 variable "tags" {
   type = map(string)
 }
+variable "igw" {
+  type    = bool
+  default = false
+}
