@@ -9,7 +9,3 @@ variable "cidr" {
 variable "name_prefix" {
   type = string
 }
-variable "vpc_cidr" {}
-variable "subnet_cidr" {}
-variable "availability_zone" {}
-variable "tags" {type = map(string)}

@@ -16,13 +16,12 @@ provider "aws" {
 }
 
 module "vpc" {
-  source            = "../../modules/vpc"
+  source            = "../../modules/rj-vpc"
   vpc_cidr          = "10.100.100.0/28"
   subnet_cidr       = "10.100.100.0/28"
   availability_zone = "us-east-1a"
   name_prefix       = "efk"
-  cidr              = module.vpc.cidr
-  azs               = module.vpc.azs
+  
   tags = {
     Environment = "dev"
   }
