@@ -2,7 +2,7 @@ name: 'Terraform'
 
 on:
   push:
-    branches: [ "add-vpc" ]
+    branches: [ "harvester" ]
   pull_request:
 
 permissions:
@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ec2/efk_terraform
+        working-directory: ec2/harvester
 
     steps:
     - name: Checkout repository
@@ -50,5 +50,5 @@ jobs:
       run: terraform plan -input=false
 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/add-vpc' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/harvester' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false

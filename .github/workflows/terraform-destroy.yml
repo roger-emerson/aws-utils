@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ec2/efk_terraform
+        working-directory: ec2/harvester
 
     steps:
     - name: Checkout repository
