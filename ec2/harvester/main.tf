@@ -18,7 +18,7 @@ module "vpc" {
   vpc_cidr          = "10.100.100.0/28"
   subnet_cidr       = "10.100.100.0/28"
   availability_zone = "us-east-1a"
-  name_prefix       = "hv"
+  name_prefix       = "HV"
   igw               = true
 
   tags = {
