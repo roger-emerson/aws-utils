@@ -90,6 +90,7 @@ resource "aws_instance" "harvester1" {
   private_ip             = "10.100.100.11"
   key_name               = var.key_pair
   vpc_security_group_ids = [aws_security_group.harvester.id]
+  user_data              = file("${path.module}/cloud-init-hv1.yml")
   tags = {
     Name = "hv1.emersonlabs.net"
   }
@@ -102,6 +103,7 @@ resource "aws_instance" "harvester2" {
   private_ip             = "10.100.100.12"
   key_name               = var.key_pair
   vpc_security_group_ids = [aws_security_group.harvester.id]
+  user_data              = file("${path.module}/cloud-init-hv2.yml")
   tags = {
     Name = "hv2.emersonlabs.net"
   }
