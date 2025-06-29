@@ -26,13 +26,9 @@ module "vpc" {
   }
 }
 
-resource "aws_eip" "harvester_vip" {
-  vpc = true
-}
+resource "aws_eip" "harvester_vip" {}
 
-resource "aws_eip" "rancher" {
-  vpc = true
-}
+resource "aws_eip" "rancher" {}
 
 resource "aws_network_interface" "harvester1_eni" {
   subnet_id       = module.vpc.private_subnets[0]
