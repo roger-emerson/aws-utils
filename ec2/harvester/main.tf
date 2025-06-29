@@ -84,36 +84,36 @@ resource "aws_eip" "harvester_vip" {}
 resource "aws_eip" "rancher" {}
 
 resource "aws_instance" "harvester1" {
-  ami                         = var.ami_id # Amazon Linux 2
-  instance_type               = "m5.large"
-  subnet_id                   = module.vpc.subnet_id
-  private_ip                  = "10.100.100.101"
-  key_name                    = var.key_pair
-  vpc_security_group_ids      = [aws_security_group.harvester.id]
+  ami                    = var.ami_id # Amazon Linux 2
+  instance_type          = "m5.large"
+  subnet_id              = module.vpc.subnet_id
+  private_ip             = "10.100.100.101"
+  key_name               = var.key_pair
+  vpc_security_group_ids = [aws_security_group.harvester.id]
   tags = {
     Name = "hv1.emersonlabs.net"
   }
 }
 
 resource "aws_instance" "harvester2" {
-  ami                         = var.ami_id
-  instance_type               = "m5.large"
-  subnet_id                   = module.vpc.subnet_id
-  private_ip                  = "10.100.100.102"
-  key_name                    = var.key_pair
-  vpc_security_group_ids      = [aws_security_group.harvester.id]
+  ami                    = var.ami_id
+  instance_type          = "m5.large"
+  subnet_id              = module.vpc.subnet_id
+  private_ip             = "10.100.100.102"
+  key_name               = var.key_pair
+  vpc_security_group_ids = [aws_security_group.harvester.id]
   tags = {
     Name = "hv2.emersonlabs.net"
   }
 }
 
 resource "aws_instance" "rancher" {
-  ami                         = var.ami_id
-  instance_type               = "t3.medium"
-  subnet_id                   = module.vpc.subnet_id
-  private_ip                  = "10.100.100.105"
-  key_name                    = var.key_pair
-  vpc_security_group_ids      = [aws_security_group.rancher.id]
+  ami                    = var.ami_id
+  instance_type          = "t3.medium"
+  subnet_id              = module.vpc.subnet_id
+  private_ip             = "10.100.100.105"
+  key_name               = var.key_pair
+  vpc_security_group_ids = [aws_security_group.rancher.id]
   tags = {
     Name = "rancher.emersonlabs.net"
   }
