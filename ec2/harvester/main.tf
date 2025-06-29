@@ -49,7 +49,7 @@ resource "aws_network_interface" "harvester2_eni" {
 resource "aws_network_interface" "rancher_eni" {
   subnet_id       = module.vpc.private_subnets[0]
   private_ips     = ["10.100.100.105"]
-  security_groups = [aws_security_group.rancher_sg.id
+  security_groups = [aws_security_group.rancher_sg.id]
 }
 
 resource "aws_instance" "harvester1" {
