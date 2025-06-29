@@ -1,0 +1,15 @@
+#cloud-config
+package_update: true
+packages:
+  - curl
+  - wget
+  - xz
+  - qemu-img
+  - kexec-tools
+
+runcmd:
+  - cd /tmp
+  - wget https://releases.rancher.com/harvester/v1.2.1/harvester-v1.2.1-amd64.iso -O harvester.iso
+  - wget https://raw.githubusercontent.com/harvester/harvester-installer/main/scripts/harvester-install -O harvester-install
+  - chmod +x harvester-install
+  - ./harvester-install --config-url https://raw.githubusercontent.com/roger-emerson/aws-utils/harvester/ec2/harvester/install-config/join.yml

@@ -1,0 +1,12 @@
+mode: create
+os:
+  ssh_authorized_keys:
+    - ssh-rsa (key coming soon))
+  hostname: harvester1
+  password: harvester
+  install:
+    device: /dev/nvme0n1
+    vip: 10.100.100.10
+    iso_url: ""
+    token: my-cluster-token
+    management_interface: eth0
