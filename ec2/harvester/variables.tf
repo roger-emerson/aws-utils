@@ -9,3 +9,9 @@ variable "key_pair" {
   type        = string
   default     = "terraform"
 }
+
+variable "ami_id" {
+  description = "ami id"
+  type        = string
+  default     = "ami-0c02fb55956c7d316"
+}

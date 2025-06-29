@@ -25,79 +25,7 @@ module "vpc" {
     Environment = "dev"
   }
 }
-
-resource "aws_eip" "harvester_vip" {}
-
-resource "aws_eip" "rancher" {}
-
-resource "aws_network_interface" "harvester1_eni" {
-  subnet_id       = module.vpc.private_subnets[0]
-  private_ips     = ["10.100.100.101"]
-  security_groups = [aws_security_group.harvester_sg.id]
-}
-
-resource "aws_network_interface" "harvester2_eni" {
-  subnet_id       = module.vpc.private_subnets[0]
-  private_ips     = ["10.100.100.102"]
-  security_groups = [aws_security_group.harvester_sg.id]
-}
-
-resource "aws_network_interface" "rancher_eni" {
-  subnet_id       = module.vpc.private_subnets[0]
-  private_ips     = ["10.100.100.105"]
-  security_groups = [aws_security_group.rancher_sg.id]
-}
-
-resource "aws_instance" "harvester1" {
-  ami           = "ami-0c02fb55956c7d316" # Amazon Linux 2
-  instance_type = "m5.large"
-  key_name      = var.key_pair
-  network_interface {
-    network_interface_id = aws_network_interface.harvester1_eni.id
-    device_index         = 0
-  }
-  tags = {
-    Name = "harvester-node-1"
-  }
-}
-
-resource "aws_instance" "harvester2" {
-  ami           = "ami-0c02fb55956c7d316"
-  instance_type = "m5.large"
-  key_name      = var.key_pair
-  network_interface {
-    network_interface_id = aws_network_interface.harvester2_eni.id
-    device_index         = 0
-  }
-  tags = {
-    Name = "harvester-node-2"
-  }
-}
-
-resource "aws_instance" "rancher" {
-  ami           = "ami-0c02fb55956c7d316"
-  instance_type = "t3.medium"
-  key_name      = var.key_pair
-  network_interface {
-    network_interface_id = aws_network_interface.rancher_eni.id
-    device_index         = 0
-  }
-  tags = {
-    Name = "rancher-server"
-  }
-}
-
-resource "aws_eip_association" "harvester_eip_association" {
-  instance_id   = aws_instance.harvester1.id
-  allocation_id = aws_eip.harvester_vip.id
-}
-
-resource "aws_eip_association" "rancher_eip_association" {
-  instance_id   = aws_instance.rancher.id
-  allocation_id = aws_eip.rancher.id
-}
-
-resource "aws_security_group" "harvester_sg" {
+resource "aws_security_group" "harvester" {
   name        = "harvester-sg"
   description = "Allow HTTP, HTTPS, and SSH"
   vpc_id      = module.vpc.vpc_id
@@ -124,7 +52,7 @@ resource "aws_security_group" "harvester_sg" {
   }
 }
 
-resource "aws_security_group" "rancher_sg" {
+resource "aws_security_group" "rancher" {
   name        = "rancher-sg"
   description = "Allow HTTPS and SSH"
   vpc_id      = module.vpc.vpc_id
@@ -149,6 +77,56 @@ resource "aws_security_group" "rancher_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_eip" "harvester_vip" {}
+
+resource "aws_eip" "rancher" {}
+
+resource "aws_instance" "harvester1" {
+  ami                         = var.ami_id # Amazon Linux 2
+  instance_type               = "m5.large"
+  subnet_id                   = module.vpc.subnet_id
+  private_ip                  = "10.100.100.101"
+  key_name                    = var.key_pair
+  vpc_security_group_ids      = [aws_security_group.harvester.id]
+  tags = {
+    Name = "hv1.emersonlabs.net"
+  }
+}
+
+resource "aws_instance" "harvester2" {
+  ami                         = var.ami_id
+  instance_type               = "m5.large"
+  subnet_id                   = module.vpc.subnet_id
+  private_ip                  = "10.100.100.102"
+  key_name                    = var.key_pair
+  vpc_security_group_ids      = [aws_security_group.harvester.id]
+  tags = {
+    Name = "hv2.emersonlabs.net"
+  }
+}
+
+resource "aws_instance" "rancher" {
+  ami                         = var.ami_id
+  instance_type               = "t3.medium"
+  subnet_id                   = module.vpc.subnet_id
+  private_ip                  = "10.100.100.105"
+  key_name                    = var.key_pair
+  vpc_security_group_ids      = [aws_security_group.rancher.id]
+  tags = {
+    Name = "rancher.emersonlabs.net"
+  }
+}
+
+resource "aws_eip_association" "harvester_eip_association" {
+  instance_id   = aws_instance.harvester1.id
+  allocation_id = aws_eip.harvester_vip.id
+}
+
+resource "aws_eip_association" "rancher_eip_association" {
+  instance_id   = aws_instance.rancher.id
+  allocation_id = aws_eip.rancher.id
 }
 
 output "harvester_public_ip" {
