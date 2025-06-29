@@ -87,7 +87,7 @@ resource "aws_instance" "harvester1" {
   ami                    = var.ami_id # Amazon Linux 2
   instance_type          = "m5.large"
   subnet_id              = module.vpc.subnet_id
-  private_ip             = "10.100.100.101"
+  private_ip             = "10.100.100.11"
   key_name               = var.key_pair
   vpc_security_group_ids = [aws_security_group.harvester.id]
   tags = {
@@ -99,7 +99,7 @@ resource "aws_instance" "harvester2" {
   ami                    = var.ami_id
   instance_type          = "m5.large"
   subnet_id              = module.vpc.subnet_id
-  private_ip             = "10.100.100.102"
+  private_ip             = "10.100.100.12"
   key_name               = var.key_pair
   vpc_security_group_ids = [aws_security_group.harvester.id]
   tags = {
@@ -111,7 +111,7 @@ resource "aws_instance" "rancher" {
   ami                    = var.ami_id
   instance_type          = "t3.medium"
   subnet_id              = module.vpc.subnet_id
-  private_ip             = "10.100.100.105"
+  private_ip             = "10.100.100.13"
   key_name               = var.key_pair
   vpc_security_group_ids = [aws_security_group.rancher.id]
   tags = {
