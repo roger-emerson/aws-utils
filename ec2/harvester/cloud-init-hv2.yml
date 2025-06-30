@@ -10,5 +10,5 @@ runcmd:
   - wget https://releases.rancher.com/harvester/v1.5.1-rc4/harvester-v1.5.1-rc4-vmlinuz-amd64 -O vmlinuz
   - wget https://releases.rancher.com/harvester/v1.5.1-rc4/harvester-v1.5.1-rc4-initrd-amd64 -O initrd
   - sudo kexec --load /tmp/vmlinuz --initrd=/tmp/initrd \
-      --command-line="harvester.install.binaries_only=true harvester.install.config_url=https://raw.githubusercontent.com/roger-emerson/aws-utils/harvester/ec2/harvester/install-config/join.yml harvester.install.automatic=true console=ttyS0"
+      --command-line="harvester.install.binaries_only=true harvester.install.config_url=https://raw.githubusercontent.com/roger-emerson/aws-utils/harvester/ec2/harvester/install-config/join.yml harvester.install.automatic=true console=ttyS0 console=tty0"
   - sudo kexec -e  
