@@ -1,12 +1,12 @@
 mode: join
 os:
   ssh_authorized_keys:
-    - ssh-rsa (key coming soon)
-  hostname: harvester2
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDIyGhsbqz+HUZiGf4jVCawPlaGUjX37xjLfWDemkWZM8n0/5B1F04UhDyUJlk0+k7MRxWMBJU111hjhfoLOGX6CZRvC/LBZ+woh+zkHxWCDsRcPQcryU83Gp7gzB0+EbqeFMd/SbwBppK6+3Mo80itJIhD7FMSphC6SE8D6uq/DJrk6d6KNCX5CLn5R+NWAgH7cNJ1KClPk5Gx1A00PsJJiCFVhvk0jlQt9mCTSAXcwXtJcQWvFX1LVBTlEHKDTFInWMrHM6WXHIdIsUblvn8UgfEI5mtuFRk8LaRieINP3SXvDxIfvedHgB+JwNRvZcRshfltFFrYFf57/95GaaLccZHXVyI79tjw/U5sWwzVxMMW4uxM2QF9p3KiK/7QEyLKQQQK0B/zq8s10YL8JmtHDe8RoyQEOXde5cmsSLTfKvbBKeUs9Ewvajue2xm6cTih47Ebn4qnuA/xZSxCrRTTm3/UMhQn7tAMXNaJh9jyt1hfSy1tmbRyyiyWZY2DQQM= roger@Rogers-MacBook-Pro.local
+  hostname: hv2.emersonlabs.net
   password: harvester
   install:
     device: /dev/nvme0n1
-    iso_url: ""
     token: my-cluster-token
-    management_interface: eth0
+    management_interface: 
+      name: eth0
     server_url: https://10.100.100.10:30443
