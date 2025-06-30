@@ -85,7 +85,7 @@ resource "aws_eip" "rancher" {}
 
 resource "aws_instance" "harvester1" {
   ami                    = var.ami_id   # Amazon Linux 2
-  instance_type          = "h1.2xlarge" #"m5.large"
+  instance_type          = "m6id.2xlarge" #"m5.large"
   subnet_id              = module.vpc.subnet_id
   private_ip             = "10.100.100.11"
   key_name               = var.key_pair
@@ -98,7 +98,7 @@ resource "aws_instance" "harvester1" {
 
 resource "aws_instance" "harvester2" {
   ami                    = var.ami_id
-  instance_type          = "h1.2xlarge" #"m5.large"
+  instance_type          = "m6id.2xlarge" #"m5.large"
   subnet_id              = module.vpc.subnet_id
   private_ip             = "10.100.100.12"
   key_name               = var.key_pair
